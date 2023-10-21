@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:meta_business/src/presentation/authentication/widget/header.dart';
 import 'package:meta_business/src/presentation/review/review_screen.dart';
 
+import '../upload/upload_screen.dart';
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -89,7 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return ReviewScreen();
+                              return UploadScreen();
                             }));
                           },
                           child: Container(
