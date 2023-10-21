@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>hCaptcha</title>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+  </head>
+  <body>
+    <center>
+      <form action="?" method="POST">
+        <div class="h-captcha"
+          data-sitekey="0af194b8-2412-4dbb-975e-a25ad88c832a"
+          data-callback="data_callback"
+          data-open-callback="data_open_callback"
+          data-close-callback="data_close_callback"
+          data-error-callback="data_close_callback"
+          data-chalexpired-callback="data_close_callback"
+          data-expired-callback="data_close_callback"
+        ></div>
+      </form>
+    </center>
+    <script>
+      function data_close_callback() {
+        window.parent?.postMessage({"type": "data-close-callback"}, "*");
+      }
+      function data_open_callback() {
+        window.parent?.postMessage({"type": "data-open-callback"}, "*");
+      }
+      function data_callback(response) {
+        window.parent?.postMessage({"type": "data-callback", "response": response}, "*");
+      }
+    </script>
+  </body>
+</html>
