@@ -9,9 +9,9 @@ import 'package:meta_business/src/presentation/login/widget/footer.dart';
 import '../bloc/home_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
-  final String ipAdress;
+  final String country;
 
-  const LoginScreen({super.key, required this.ipAdress});
+  const LoginScreen({super.key, required this.country});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -26,8 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   submit() {
     print("clicked");
     if (_formKey.currentState!.validate()) {
-      _homeBloc
-          .add(CheckLoginEvent(email.text, password.text, widget.ipAdress));
+      _homeBloc.add(CheckLoginEvent(email.text, password.text, widget.country));
     }
   }
 

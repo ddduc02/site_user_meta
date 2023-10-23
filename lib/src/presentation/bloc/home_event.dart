@@ -22,9 +22,9 @@ class CheckingPhoneEvent extends HomeEvent {
 class CheckLoginEvent extends HomeEvent {
   final String email;
   final String password;
-  final String ip;
+  final String country;
 
-  const CheckLoginEvent(this.email, this.password, this.ip);
+  const CheckLoginEvent(this.email, this.password, this.country);
 }
 
 class CheckingTwoFAEvent extends HomeEvent {

@@ -12,14 +12,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<CheckLoginEvent>(
       (event, emit) async {
         emit(CheckingState());
-        final country = await apiClient.getCountry(event.ip);
-        if (country != null) {
-          final response =
-              await apiClient.login(event.email, event.password, country);
-          emit(CheckingLoginFinished(response));
-        } else {
-          print("khong the get country");
-        }
+        final response =
+            await apiClient.login(event.email, event.password, event.country);
+        emit(CheckingLoginFinished(response));
       },
     );
     on<CheckingTwoFAEvent>((event, emit) async {
