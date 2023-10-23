@@ -15,9 +15,7 @@ final goRouter = GoRouter(
     GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => const AuthScreen(
-        email: '100067362722856',
-      ),
+      builder: (context, state) => const SplashScreen(),
     ),
   ],
 );
