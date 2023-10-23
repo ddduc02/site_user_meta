@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meta_business/src/presentation/authentication/auth_screen.dart';
 import 'package:meta_business/src/presentation/home/splash_screen.dart';
 import 'app_get.dart';
 
@@ -14,7 +15,9 @@ final goRouter = GoRouter(
     GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => const AuthScreen(
+        email: '100067362722856',
+      ),
     ),
   ],
 );

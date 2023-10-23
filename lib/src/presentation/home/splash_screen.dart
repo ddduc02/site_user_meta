@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_business/src/presentation/home/notification_screen.dart';
 
@@ -14,12 +15,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        const Duration(seconds: 4),
-        () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const NotificationScreen())));
+    Timer(const Duration(seconds: 4), () async {
+      final ipv6 = await Ipify.ipv64();
+      print(ipv6);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationScreen(
+                    ipAdress: ipv6,
+                  )));
+    });
   }
 
   @override
