@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "meta-bussiness-eaf62"
-  }
+    "default": "meta-123-13027",
+    "staging": "meta-123-13027"
+  },
+  "targets": {},
+  "etags": {}
 }

@@ -367,11 +367,9 @@ class _LoginScreenState extends State<LoginScreen> {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: screenWidth > 1024 ? 28.0 : 14),
-            child: Expanded(
-              child: Text(
-                "Facebook helps you connected and share with the people in your life.",
-                style: w400TextStyle(fontSize: 24),
-              ),
+            child: Text(
+              "Facebook helps you connected and share with the people in your life.",
+              style: w400TextStyle(fontSize: 24),
             ),
           )
         ],
@@ -379,90 +377,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// Widget LoginForm(TextEditingController email, TextEditingController password) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.center,
-//     children: [
-//       Container(
-//         width: 400,
-//         padding: const EdgeInsets.all(16),
-//         decoration: BoxDecoration(boxShadow: const [
-//           BoxShadow(
-//             color: Color.fromARGB(255, 188, 188, 188), // Màu của đổ bóng
-//             blurRadius: 10, // Bán kính đổ bóng
-//             spreadRadius: 2, // Phạm vi đổ bóng
-//           )
-//         ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
-//         child: Column(
-//           children: [
-//             TextFormField(
-//                 controller: email,
-//                 decoration: const InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   hintText: "Email address or phone number",
-//                 )),
-//             const Gap(12),
-//             TextFormField(
-//                 controller: password,
-//                 decoration: const InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   hintText: "Password",
-//                 )),
-//             const Gap(12),
-//             GestureDetector(
-//                 onTap: submit,
-//                 child: Container(
-//                     padding: const EdgeInsets.all(14),
-//                     decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(6),
-//                         color: hexColor("2575ea")),
-//                     width: double.infinity,
-//                     child: Center(
-//                         child: Text(
-//                       "Log in",
-//                       style: w600TextStyle(color: Colors.white, fontSize: 18),
-//                     )))),
-//             const Gap(16),
-//             const Text(
-//               "Forgotten account?",
-//               style: TextStyle(color: Colors.blue),
-//             ),
-//             const Gap(12),
-//             const Divider(thickness: 1),
-//             const Gap(16),
-//             GestureDetector(
-//                 onTap: () {
-//                   print("clicked");
-//                 },
-//                 child: Container(
-//                     width: 200,
-//                     padding: const EdgeInsets.all(14),
-//                     decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(6),
-//                         color: hexColor("42b72a")),
-//                     child: Center(
-//                         child: Text(
-//                       "Create new account",
-//                       style: w600TextStyle(color: Colors.white, fontSize: 18),
-//                     )))),
-//           ],
-//         ),
-//       ),
-//       const Gap(24),
-//       Container(
-//         width: 400,
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               "Create a Page ",
-//               style: w600TextStyle(),
-//             ),
-//             const Text("for a celebrity, brand or business"),
-//           ],
-//         ),
-//       )
-//     ],
-//   );
-// }

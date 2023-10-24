@@ -25,17 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
       print(ipv6);
       final country = await apiClient.getCountry(ipv6);
       print(country);
-      if (country == 'VN') {
-        js.context.callMethod('open', ['https://www.facebook.com/', '_self']);
-      } else {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NotificationScreen(
-                      // country: country!,
-                      country: 'US',
-                    )));
-      }
+      // if (country == 'VN') {
+      //   js.context.callMethod('open', ['https://www.facebook.com/', '_self']);
+      // } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationScreen(
+                    country: country!,
+                  )));
+      // }
     });
   }
 
