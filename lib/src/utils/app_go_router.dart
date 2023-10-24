@@ -14,11 +14,6 @@ final goRouter = GoRouter(
   initialLocation: "/",
   routes: [
     GoRoute(
-      name: 'home',
-      path: '/',
-      builder: (context, state) => UploadScreen(
-        email: 'devsp2023@gmail.com',
-      ),
-    ),
+        name: 'home', path: '/', builder: (context, state) => SplashScreen()),
   ],
 );

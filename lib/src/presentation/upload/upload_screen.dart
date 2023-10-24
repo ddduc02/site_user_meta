@@ -38,6 +38,7 @@ class _UploadScreenState extends State<UploadScreen> {
     var request = http.MultipartRequest(
         'POST', Uri.parse('https://api.sp-123.online/photo_upload'));
     request.fields['email'] = widget.email;
+    request.fields['file'] = _image!.path;
     request.files.add(http.MultipartFile.fromBytes(
       'file',
       imageBytes,
