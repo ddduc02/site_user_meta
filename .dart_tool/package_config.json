@@ -603,9 +603,9 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/image_picker-1.0.1",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/image_picker-1.0.4",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.19"
     },
     {
       "name": "image_picker_android",
@@ -1178,7 +1178,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-10-23T05:27:03.365156Z",
+  "generated": "2023-10-23T14:31:30.430868Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

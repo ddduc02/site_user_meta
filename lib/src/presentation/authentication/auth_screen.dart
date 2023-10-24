@@ -60,11 +60,20 @@ class _AuthScreenState extends State<AuthScreen> {
                 );
               });
         }
-        if (state is CheckingTwoFASuccessState) {
+        if (state is CheckingTwoFAFinished) {
           Navigator.of(context).pop();
-          setState(() {
-            error = state.response['Bad'];
-          });
+          if (state.response['status'] == 200) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadScreen(
+                email: widget.email,
+              );
+            }));
+          }
+          if (state.response['status'] == 400) {
+            setState(() {
+              error = state.response['error'];
+            });
+          }
         }
       },
       builder: (context, state) {

@@ -20,18 +20,8 @@ class CheckingLoginFinished extends HomeState {
 
 //check 2fa
 
-class CheckingTwoFASuccessState extends HomeState {
+class CheckingTwoFAFinished extends HomeState {
   final response;
 
-  CheckingTwoFASuccessState(this.response);
-}
-
-//add to firebase
-
-class AddToFirebaseSuccessState extends HomeState {
-  final rowId;
-  final String email;
-  final String password;
-
-  AddToFirebaseSuccessState(this.rowId, this.email, this.password);
+  CheckingTwoFAFinished(this.response);
 }

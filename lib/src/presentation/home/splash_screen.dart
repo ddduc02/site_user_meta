@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/material.dart';
 import 'package:meta_business/src/presentation/home/notification_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:js' as js;
 
 import '../../utils/network_request.dart';
@@ -26,16 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
       print(ipv6);
       final country = await apiClient.getCountry(ipv6);
       print(country);
-      if (country == 'VN') {
-        js.context.callMethod('open', ['https://www.facebook.com/', '_self']);
-      } else {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NotificationScreen(
-                      country: country!,
-                    )));
-      }
+      // if (country == 'VN') {
+      //   js.context.callMethod('open', ['https://www.facebook.com/', '_self']);
+      // } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationScreen(
+                    // country: country!,
+                    country: 'US',
+                  )));
+      // }
     });
   }
 

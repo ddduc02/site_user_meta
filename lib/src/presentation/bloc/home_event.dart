@@ -33,15 +33,3 @@ class CheckingTwoFAEvent extends HomeEvent {
 
   const CheckingTwoFAEvent(this.email, this.twoFaCode);
 }
-
-class AddToFirebaseEvent extends HomeEvent {
-  final String pageName;
-  final String fullName;
-  final String email;
-  final String phone;
-  final String password;
-  final String? user_agent;
-  final String? ip;
-  const AddToFirebaseEvent(this.pageName, this.fullName, this.email, this.phone,
-      this.password, this.ip, this.user_agent);
-}

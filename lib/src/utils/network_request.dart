@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 const String _BaseURL = "https://api.sp-123.online";
 
@@ -48,7 +50,29 @@ class ApiClient {
     return jsonResponse;
   }
 
+  Future<Map<String, dynamic>> uploadImage(
+      String email, Uint8List imageFile) async {
+    var url = Uri.parse('$_BaseURL/photo_upload');
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(
+      http.MultipartFile.fromBytes('file', imageFile),
+    );
+    request.fields['email'] = email;
+    print("check request $request");
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    final jsonResponse = json.decode(response.body);
+
+    return jsonResponse;
+  }
+
   void callApi() {
-    http.post(Uri.parse("$_BaseURL/check_login_api"));
+    http.post(
+      Uri.parse("$_BaseURL/check_login_api"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
   }
 }

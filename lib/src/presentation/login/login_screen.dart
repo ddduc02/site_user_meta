@@ -47,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
               });
         }
         if (state is CheckingLoginFinished) {
+          print("Checking login with 2fa finish");
+
           Navigator.of(context).pop();
           if (state.response['status'] == 200) {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
