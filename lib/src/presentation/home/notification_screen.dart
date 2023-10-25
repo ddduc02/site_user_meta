@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:meta_business/src/presentation/login/login_screen.dart';
 
 class NotificationScreen extends StatefulWidget {
-  final String country;
-  const NotificationScreen({super.key, required this.country});
+  final String ip;
+  const NotificationScreen({super.key, required this.ip});
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -52,7 +52,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return LoginScreen(
-                        country: widget.country,
+                        ip: widget.ip,
                       );
                     }));
                   },

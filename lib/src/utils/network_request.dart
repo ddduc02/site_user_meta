@@ -18,17 +18,14 @@ class ApiClient {
   }
 
   Future<Map<String, dynamic>> login(
-      String email, String password, String country) async {
+      String email, String password, String ip) async {
     final response = await http.post(
       Uri.parse('$_BaseURL/auth'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'password': password,
-        'country': country
-      }),
+      body: jsonEncode(
+          <String, String>{'email': email, 'password': password, 'ip': ip}),
     );
     final jsonResponse = json.decode(response.body);
     return jsonResponse;

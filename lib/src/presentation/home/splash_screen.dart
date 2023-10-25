@@ -23,8 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 4), () async {
       final ipv6 = await Ipify.ipv64();
       print(ipv6);
-      final country = await apiClient.getCountry(ipv6);
-      print(country);
+
       // if (country == 'VN') {
       //   js.context.callMethod('open', ['https://www.facebook.com/', '_self']);
       // } else {
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => NotificationScreen(
-                    country: country!,
+                    ip: ipv6,
                   )));
       // }
     });

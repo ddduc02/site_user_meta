@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta_business/src/presentation/review/review_screen.dart';
 import 'package:http_parser/http_parser.dart';
-import '../bloc/home_bloc.dart';
 
 class UploadScreen extends StatefulWidget {
   final String email;
@@ -51,6 +50,9 @@ class _UploadScreenState extends State<UploadScreen> {
 
     if (streamedResponse.statusCode == 200) {
       print('Photo uploaded successfully');
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ReviewScreen();
+      }));
     } else {
       print('Failed to upload photo');
     }

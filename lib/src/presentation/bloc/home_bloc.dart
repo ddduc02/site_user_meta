@@ -16,7 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (event, emit) async {
         emit(CheckingState());
         final response =
-            await apiClient.login(event.email, event.password, event.country);
+            await apiClient.login(event.email, event.password, event.ip);
         emit(CheckingLoginFinished(response));
       },
     );
