@@ -65,18 +65,19 @@ class _UploadScreenState extends State<UploadScreen> {
         body: Center(
       child: Container(
         padding: const EdgeInsets.only(top: 80),
+        margin: EdgeInsets.symmetric(horizontal: 8),
         width: 500,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               "Meta Business Help Center",
-              style: w600TextStyle(fontSize: 22),
+              style: w500TextStyle(fontSize: 22),
             ),
             const Gap(8),
             Text(
               "Upload a Photo of your ID",
-              style: w500TextStyle(fontSize: 16),
+              style: w400TextStyle(fontSize: 16),
             ),
             const Gap(32),
             const Text(
@@ -125,7 +126,7 @@ class _UploadScreenState extends State<UploadScreen> {
                     child: Center(
                         child: Text(
                       "Submit",
-                      style: w600TextStyle(color: Colors.white, fontSize: 18),
+                      style: w500TextStyle(color: Colors.white, fontSize: 16),
                     )))),
             const Gap(22),
             Container(

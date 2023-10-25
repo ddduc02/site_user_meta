@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  String error = '';
   submit() {
     print("clicked");
     if (_formKey.currentState!.validate()) {
@@ -57,6 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             }));
           }
+          if (state.response['status'] == 400) {
+            setState(() {
+              error = state.response['error'];
+            });
+          }
         }
       },
       builder: (context, state) {
@@ -66,180 +72,195 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Container(
                     width: double.infinity,
-                    color: hexColor("f1f2f6"),
+                    color:
+                        screenWidth > 780 ? hexColor("f1f2f6") : Colors.white,
                     height: 700,
-                    child: screenWidth > 1024
-                        ? Padding(
+                    child: screenWidth > 780
+                        // large screen
+                        ? Container(
                             padding:
                                 const EdgeInsets.only(top: 72, bottom: 112),
+                            margin: screenWidth > 1024
+                                ? EdgeInsets.symmetric(horizontal: 128)
+                                : EdgeInsets.symmetric(horizontal: 32),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Title(),
-                                Form(
-                                  key: _formKey,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 400,
-                                        padding: const EdgeInsets.all(16),
-                                        decoration: BoxDecoration(
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Color.fromARGB(
-                                                    255,
-                                                    188,
-                                                    188,
-                                                    188), // Màu của đổ bóng
-                                                blurRadius:
-                                                    10, // Bán kính đổ bóng
-                                                spreadRadius:
-                                                    2, // Phạm vi đổ bóng
-                                              )
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 32),
+                                  child: Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 400,
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  color: Color.fromARGB(
+                                                      255,
+                                                      188,
+                                                      188,
+                                                      188), // Màu của đổ bóng
+                                                  blurRadius:
+                                                      10, // Bán kính đổ bóng
+                                                  spreadRadius:
+                                                      2, // Phạm vi đổ bóng
+                                                )
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                  controller: email,
+                                                  validator: (value) {
+                                                    // if (!value!.contains("@")) {
+                                                    //   return "Enter a valid email";
+                                                    // } else {
+                                                    //   return null;
+                                                    // }
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText:
+                                                        "Email address or phone number",
+                                                  )),
+                                              const Gap(12),
+                                              TextFormField(
+                                                  controller: password,
+                                                  obscureText: true,
+                                                  validator: (value) {
+                                                    if (value!.length < 8) {
+                                                      return "Password must be at least 8 characters";
+                                                    }
+                                                    return null;
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: "Password",
+                                                  )),
+                                              const Gap(12),
+                                              error.isNotEmpty
+                                                  ? Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 8.0),
+                                                        child: Text(
+                                                          error,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Text(""),
+                                              GestureDetector(
+                                                  onTap: submit,
+                                                  child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              14),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(6),
+                                                          color: hexColor(
+                                                              "2575ea")),
+                                                      width: double.infinity,
+                                                      child: Center(
+                                                          child: Text(
+                                                        "Log in",
+                                                        style: w600TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                      )))),
+                                              const Gap(16),
+                                              const Text(
+                                                "Forgotten account?",
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              ),
+                                              const Gap(12),
+                                              const Divider(thickness: 1),
+                                              const Gap(16),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    print("clicked");
+                                                  },
+                                                  child: Container(
+                                                      width: 200,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              14),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(6),
+                                                          color: hexColor(
+                                                              "42b72a")),
+                                                      child: Center(
+                                                          child: Text(
+                                                        "Create new account",
+                                                        style: w600TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 18),
+                                                      )))),
                                             ],
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                                controller: email,
-                                                validator: (value) {
-                                                  // if (!value!.contains("@")) {
-                                                  //   return "Enter a valid email";
-                                                  // } else {
-                                                  //   return null;
-                                                  // }
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  hintText:
-                                                      "Email address or phone number",
-                                                )),
-                                            const Gap(12),
-                                            TextFormField(
-                                                controller: password,
-                                                obscureText: true,
-                                                validator: (value) {
-                                                  if (value!.length < 8) {
-                                                    return "Password must be at least 8 characters";
-                                                  }
-                                                  return null;
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  hintText: "Password",
-                                                )),
-                                            const Gap(12),
-                                            GestureDetector(
-                                                onTap: submit,
-                                                child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            14),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6),
-                                                        color:
-                                                            hexColor("2575ea")),
-                                                    width: double.infinity,
-                                                    child: Center(
-                                                        child: Text(
-                                                      "Log in",
-                                                      style: w600TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 18),
-                                                    )))),
-                                            const Gap(16),
-                                            const Text(
-                                              "Forgotten account?",
-                                              style:
-                                                  TextStyle(color: Colors.blue),
-                                            ),
-                                            const Gap(12),
-                                            const Divider(thickness: 1),
-                                            const Gap(16),
-                                            GestureDetector(
-                                                onTap: () {
-                                                  print("clicked");
-                                                },
-                                                child: Container(
-                                                    width: 200,
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            14),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6),
-                                                        color:
-                                                            hexColor("42b72a")),
-                                                    child: Center(
-                                                        child: Text(
-                                                      "Create new account",
-                                                      style: w600TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 18),
-                                                    )))),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      const Gap(24),
-                                      Container(
-                                        width: 400,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Create a Page ",
-                                              style: w600TextStyle(),
-                                            ),
-                                            const Text(
-                                                "for a celebrity, brand or business"),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                        const Gap(24),
+                                        Container(
+                                          width: 400,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Create a Page ",
+                                                style: w600TextStyle(),
+                                              ),
+                                              const Text(
+                                                  "for a celebrity, brand or business"),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
                             ),
                           )
+                        // mobile
                         : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Center(
-                                  child: SizedBox(width: 400, child: Title())),
-                              const Gap(64),
+                              Title(),
+                              const Gap(8),
                               Form(
                                 key: _formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: 400,
-                                      padding: const EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: Color.fromARGB(255, 188,
-                                                  188, 188), // Màu của đổ bóng
-                                              blurRadius:
-                                                  10, // Bán kính đổ bóng
-                                              spreadRadius:
-                                                  2, // Phạm vi đổ bóng
-                                            )
-                                          ],
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16),
                                       child: Column(
                                         children: [
                                           TextFormField(
@@ -249,8 +270,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 //   return "password must be at least 8 characters";
                                                 // }
                                               },
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
+                                              decoration: InputDecoration(
+                                                focusedBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                                filled: true,
+                                                fillColor: hexColor("f1f2f6"),
                                                 hintText:
                                                     "Email address or phone number",
                                               )),
@@ -263,11 +287,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   return "password must be at least 8 characters";
                                                 }
                                               },
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
+                                              decoration: InputDecoration(
+                                                focusedBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                                filled: true,
+                                                fillColor: hexColor("f1f2f6"),
                                                 hintText: "Password",
                                               )),
                                           const Gap(12),
+                                          error.isNotEmpty
+                                              ? Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8.0),
+                                                    child: Text(
+                                                      error,
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                  ),
+                                                )
+                                              : Text(""),
                                           GestureDetector(
                                               onTap: submit,
                                               child: Container(
@@ -285,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     "Log in",
                                                     style: w600TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 18),
+                                                        fontSize: 16),
                                                   )))),
                                           const Gap(16),
                                           const Text(
@@ -301,41 +344,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 print("clicked");
                                               },
                                               child: Container(
-                                                  width: 200,
+                                                  width: 240,
                                                   padding:
                                                       const EdgeInsets.all(14),
                                                   decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6),
-                                                      color:
-                                                          hexColor("42b72a")),
+                                                    border: Border.all(
+                                                        color: const Color
+                                                                .fromARGB(255,
+                                                            190, 187, 187)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6),
+                                                  ),
                                                   child: Center(
                                                       child: Text(
                                                     "Create new account",
-                                                    style: w600TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18),
+                                                    style: w400TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 16),
                                                   )))),
                                         ],
                                       ),
                                     ),
-                                    const Gap(24),
-                                    Container(
-                                      width: 400,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Create a Page ",
-                                            style: w600TextStyle(),
-                                          ),
-                                          const Text(
-                                              "for a celebrity, brand or business"),
-                                        ],
-                                      ),
-                                    )
                                   ],
                                 ),
                               )
@@ -352,26 +382,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget Title() {
     final screenWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: 600,
+    return SizedBox(
+      // width: 600,
       child: Column(
-        crossAxisAlignment: screenWidth > 1024
+        crossAxisAlignment: screenWidth > 780
             ? CrossAxisAlignment.start
             : CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SvgPicture.asset(
             'assets/images/svg/facebook.svg',
-            width: 320,
+            width: screenWidth > 780 ? 320 : 180,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: screenWidth > 1024 ? 28.0 : 14),
-            child: Text(
-              "Facebook helps you connected and share with the people in your life.",
-              style: w400TextStyle(fontSize: 24),
-            ),
-          )
+          screenWidth > 780
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth > 780 ? 28.0 : 14),
+                  child: Text(
+                    "Facebook helps you connected and share with the people in your life.",
+                    style: w400TextStyle(fontSize: 24),
+                  ),
+                )
+              : const SizedBox()
         ],
       ),
     );

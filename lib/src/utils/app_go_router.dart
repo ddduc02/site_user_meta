@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meta_business/src/presentation/authentication/auth_screen.dart';
+
 import 'package:meta_business/src/presentation/home/splash_screen.dart';
-import '../presentation/upload/upload_screen.dart';
+import 'package:meta_business/src/presentation/login/login_screen.dart';
+
 import 'app_get.dart';
 
 GlobalKey<NavigatorState> get navigatorKey =>
@@ -16,6 +17,8 @@ final goRouter = GoRouter(
     GoRoute(
         name: 'home',
         path: '/',
-        builder: (context, state) => const SplashScreen()),
+        builder: (context, state) => const LoginScreen(
+              ip: '8.8.8.8',
+            )),
   ],
 );
