@@ -17,8 +17,6 @@ final goRouter = GoRouter(
     GoRoute(
         name: 'home',
         path: '/',
-        builder: (context, state) => const LoginScreen(
-              ip: '8.8.8.8',
-            )),
+        builder: (context, state) => const SplashScreen()),
   ],
 );

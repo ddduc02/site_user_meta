@@ -32,9 +32,19 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    apiTimer = Timer.periodic(Duration(seconds: intervalInSeconds), (timer) {
-      apiClient.checkLogin(widget.email);
-      print("Calling API every 2 seconds");
+    apiTimer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+      print("Calling API every 5 seconds");
+      final response = await apiClient.checkLogin(widget.email);
+      print("update");
+      print("check status on init ${response['status']}");
+      if (response['status'] == 200) {
+        apiTimer.cancel();
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return UploadScreen(
+            email: widget.email,
+          );
+        }));
+      }
     });
   }
 
