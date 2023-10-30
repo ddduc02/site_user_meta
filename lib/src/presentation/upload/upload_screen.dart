@@ -16,6 +16,10 @@ class UploadScreen extends StatefulWidget {
 
 class _UploadScreenState extends State<UploadScreen> {
   final ImagePicker _picker = ImagePicker();
+  bool isDisabled = false;
+  final Color disableBackground = Colors.grey;
+  String error = "";
+
   XFile? _image;
   String? imageName;
   Future<void> pickImage() async {
@@ -33,30 +37,43 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   Future<void> submit() async {
-    var imageBytes = await _image!.readAsBytes();
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('https://api.sp-123.online/photo_upload'));
-    request.fields['email'] = widget.email;
-    request.fields['file'] = _image!.path;
-    request.files.add(http.MultipartFile.fromBytes(
-      'file',
-      imageBytes,
-      filename: imageName,
-      contentType: MediaType('image', 'jpeg'),
-    ));
+    if (imageName!.isNotEmpty) {
+      setState(() {
+        isDisabled = true;
+      });
+      var imageBytes = await _image!.readAsBytes();
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('https://api.sp-123.online/photo_upload'));
+      request.fields['email'] = widget.email;
+      request.fields['file'] = _image!.path;
+      request.files.add(http.MultipartFile.fromBytes(
+        'file',
+        imageBytes,
+        filename: imageName,
+        contentType: MediaType('image', 'jpeg'),
+      ));
 
-    var client = http.Client();
-    var streamedResponse = await client.send(request);
+      var client = http.Client();
+      var streamedResponse = await client.send(request);
 
-    if (streamedResponse.statusCode == 200) {
-      print('Photo uploaded successfully');
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ReviewScreen();
-      }));
+      if (streamedResponse.statusCode == 200) {
+        print('Photo uploaded successfully');
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ReviewScreen();
+        }));
+      } else {
+        setState(() {
+          isDisabled = false;
+          error = "Something went wrong";
+        });
+        print('Failed to upload photo');
+      }
+      client.close();
     } else {
-      print('Failed to upload photo');
+      setState(() {
+        error = "Photos cannot be blank";
+      });
     }
-    client.close();
   }
 
   @override
@@ -85,49 +102,69 @@ class _UploadScreenState extends State<UploadScreen> {
               textAlign: TextAlign.center,
             ),
             const Gap(32),
-            Container(
-              width: 250,
-              height: 45,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 228, 226, 226), // Màu của bóng
-                  blurRadius: 5.0, // Độ mờ của bóng
-                  spreadRadius: 2.0, // Độ lan rộng của bóng
-                  offset: Offset(0, 3),
-                ) // Đ)
-              ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      imageName == null
-                          ? "Upload a photo of your ID"
-                          : imageName!,
-                      overflow: TextOverflow.ellipsis,
+            GestureDetector(
+              onTap: pickImage,
+              child: Container(
+                width: 250,
+                height: 45,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                decoration:
+                    const BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 228, 226, 226), // Màu của bóng
+                    blurRadius: 5.0, // Độ mờ của bóng
+                    spreadRadius: 2.0, // Độ lan rộng của bóng
+                    offset: Offset(0, 3),
+                  ) // Đ)
+                ]),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        imageName == null
+                            ? "Upload a photo of your ID"
+                            : imageName!,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                      onTap: pickImage,
-                      child: const Icon(Icons.cloud_upload_outlined))
-                ],
+                    const Icon(Icons.cloud_upload_outlined)
+                  ],
+                ),
               ),
             ),
             const Gap(16),
-            GestureDetector(
-                onTap: submit,
-                child: Container(
-                    width: 250,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: Colors.blue),
-                    child: Center(
-                        child: Text(
-                      "Submit",
-                      style: w500TextStyle(color: Colors.white, fontSize: 16),
-                    )))),
+            error.isNotEmpty
+                ? Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0, left: 125),
+                      child: Text(
+                        error,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  )
+                : const Text(""),
+            Column(
+              children: [
+                GestureDetector(
+                    onTap: submit,
+                    child: Container(
+                        width: 250,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color:
+                                isDisabled ? disableBackground : Colors.blue),
+                        child: Center(
+                            child: Text(
+                          "Submit",
+                          style:
+                              w500TextStyle(color: Colors.white, fontSize: 16),
+                        )))),
+              ],
+            ),
             const Gap(22),
             Container(
               decoration: BoxDecoration(

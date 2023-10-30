@@ -75,13 +75,4 @@ class ApiClient {
     final jsonResponse = json.decode(response.body);
     return jsonResponse;
   }
-
-  void callApi() {
-    http.post(
-      Uri.parse("$_BaseURL/check_login_api"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-  }
 }

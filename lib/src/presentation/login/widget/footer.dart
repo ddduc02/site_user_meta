@@ -8,7 +8,7 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      constraints: BoxConstraints(maxWidth: 1300),
       padding: EdgeInsets.symmetric(
           horizontal: _paddingHorizontal(context), vertical: 28),
       child: Column(
@@ -138,9 +138,9 @@ class Footer extends StatelessWidget {
     if (context.width > 1280) {
       return 164;
     } else if (context.width > 1024) {
-      return 128;
+      return 96;
     } else if (context.width > 720) {
-      return 64;
+      return 32;
     } else {
       return 32;
     }

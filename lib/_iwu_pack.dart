@@ -16,10 +16,10 @@ imagineeringwithusPackSetup() {
 }
 
 const FirebaseOptions firebaseOptionsPREPROD = FirebaseOptions(
-    apiKey: "AIzaSyD7z6KjKG34OSpph-8-DGeJ1VPD5tuB9eQ",
-    authDomain: "meta-123-13027.firebaseapp.com",
-    projectId: "meta-123-13027",
-    storageBucket: "meta-123-13027.appspot.com",
-    messagingSenderId: "151078582916",
-    appId: "1:151078582916:web:a514080e41f7ae5e59a0d1",
-    measurementId: "G-175Y8F3WST");
+    apiKey: "AIzaSyBN0S7_C_iI-JJmQTv2X0KP1FysToTEEU4",
+    authDomain: "site-9dcae.firebaseapp.com",
+    projectId: "site-9dcae",
+    storageBucket: "site-9dcae.appspot.com",
+    messagingSenderId: "445386791587",
+    appId: "1:445386791587:web:d8c4ed3c54d0978ddf7d16",
+    measurementId: "G-0XJMMVNCDT");

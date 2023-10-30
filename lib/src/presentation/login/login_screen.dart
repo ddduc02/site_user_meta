@@ -20,6 +20,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final HomeBloc _homeBloc = HomeBloc();
+  bool isDisabled = false;
+  final Color disableBackground = Colors.grey;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -38,19 +40,22 @@ class _LoginScreenState extends State<LoginScreen> {
       bloc: _homeBloc,
       listener: (context, state) {
         if (state is CheckingState) {
-          print("Checking login with 2fa");
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              });
+          print("Checking login");
+          // showDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return const Center(
+          //         child: CircularProgressIndicator(),
+          //       );
+          //     });
+          setState(() {
+            isDisabled = true;
+          });
         }
         if (state is CheckingLoginFinished) {
-          print("Checking login with 2fa finish");
+          print("Checking login finish");
 
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
           if (state.response['status'] == 200) {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return AuthScreen(
@@ -60,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           if (state.response['status'] == 400) {
             setState(() {
-              error = state.response['error'];
+              error = state.response['message'];
+              isDisabled = false;
             });
           }
         }
@@ -69,9 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    width: double.infinity,
                     color:
                         screenWidth > 780 ? hexColor("f1f2f6") : Colors.white,
                     height: 700,
@@ -80,17 +86,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? Container(
                             padding:
                                 const EdgeInsets.only(top: 72, bottom: 112),
-                            margin: screenWidth > 1024
-                                ? EdgeInsets.symmetric(horizontal: 128)
-                                : EdgeInsets.symmetric(horizontal: 32),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Title(),
+                                Flexible(flex: 3, child: Title()),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 32),
+                                      horizontal: 16),
                                   child: Form(
                                     key: _formKey,
                                     child: Column(
@@ -163,13 +166,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 bottom: 8.0),
                                                         child: Text(
                                                           error,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.red),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .red),
                                                         ),
                                                       ),
                                                     )
-                                                  : Text(""),
+                                                  : const Text(""),
                                               GestureDetector(
                                                   onTap: submit,
                                                   child: Container(
@@ -180,8 +184,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(6),
-                                                          color: hexColor(
-                                                              "2575ea")),
+                                                          color: isDisabled
+                                                              ? disableBackground
+                                                              : hexColor(
+                                                                  "2575ea")),
                                                       width: double.infinity,
                                                       child: Center(
                                                           child: Text(
@@ -225,20 +231,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         const Gap(24),
-                                        Container(
-                                          width: 400,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Create a Page ",
-                                                style: w600TextStyle(),
-                                              ),
-                                              const Text(
-                                                  "for a celebrity, brand or business"),
-                                            ],
-                                          ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Create a Page ",
+                                              style: w600TextStyle(),
+                                            ),
+                                            const Text(
+                                                "for a celebrity, brand or business"),
+                                          ],
                                         )
                                       ],
                                     ),
@@ -305,12 +308,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                             bottom: 8.0),
                                                     child: Text(
                                                       error,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.red),
                                                     ),
                                                   ),
                                                 )
-                                              : Text(""),
+                                              : const Text(""),
                                           GestureDetector(
                                               onTap: submit,
                                               child: Container(
@@ -320,8 +323,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               6),
-                                                      color:
-                                                          hexColor("2575ea")),
+                                                      color: isDisabled
+                                                          ? disableBackground
+                                                          : hexColor("2575ea")),
                                                   width: double.infinity,
                                                   child: Center(
                                                       child: Text(
@@ -382,8 +386,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget Title() {
     final screenWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-      // width: 600,
+    return Container(
+      constraints: BoxConstraints(maxWidth: 560),
       child: Column(
         crossAxisAlignment: screenWidth > 780
             ? CrossAxisAlignment.start
@@ -396,8 +400,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           screenWidth > 780
               ? Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth > 780 ? 28.0 : 14),
+                  padding: EdgeInsets.only(left: screenWidth > 780 ? 28.0 : 14),
                   child: Text(
                     "Facebook helps you connected and share with the people in your life.",
                     style: w400TextStyle(fontSize: 24),

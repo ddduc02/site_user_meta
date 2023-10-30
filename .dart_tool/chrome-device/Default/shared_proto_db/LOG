@@ -1,7 +1,21 @@
-2023/10/25-14:06:59.065 b403 Reusing MANIFEST /private/var/folders/cx/qwvp0n8106d7tq2_vp1z51km0000gn/T/flutter_tools.iukuWu/flutter_tools_chrome_device.CXSh40/Default/shared_proto_db/MANIFEST-000001
-2023/10/25-14:06:59.065 b403 Recovering log #13
-2023/10/25-14:06:59.068 b403 Reusing old log /private/var/folders/cx/qwvp0n8106d7tq2_vp1z51km0000gn/T/flutter_tools.iukuWu/flutter_tools_chrome_device.CXSh40/Default/shared_proto_db/000013.log 
-2023/10/25-14:06:59.069 b403 Delete type=0 #7
-2023/10/25-14:06:59.069 b403 Delete type=0 #4
-2023/10/25-14:06:59.069 b403 Delete type=0 #10
-2023/10/25-14:06:59.069 b403 Delete type=0 #3
+2023/10/30-08:34:11.322 f503 Reusing MANIFEST /private/var/folders/cx/qwvp0n8106d7tq2_vp1z51km0000gn/T/flutter_tools.PmIC7Y/flutter_tools_chrome_device.SJ2T9f/Default/shared_proto_db/MANIFEST-000001
+2023/10/30-08:34:11.323 f503 Recovering log #15
+2023/10/30-08:34:11.325 f503 Reusing old log /private/var/folders/cx/qwvp0n8106d7tq2_vp1z51km0000gn/T/flutter_tools.PmIC7Y/flutter_tools_chrome_device.SJ2T9f/Default/shared_proto_db/000015.log 
+2023/10/30-08:34:11.326 f503 Delete type=0 #13
+2023/10/30-08:34:11.326 f503 Delete type=0 #7
+2023/10/30-08:34:11.326 f503 Delete type=0 #4
+2023/10/30-08:34:11.326 f503 Delete type=0 #10
+2023/10/30-08:34:11.326 f503 Delete type=0 #3
+2023/10/30-08:34:11.326 f503 Delete type=2 #16
+2023/10/30-08:34:33.529 8703 Level-0 table #18: started
+2023/10/30-08:34:33.615 8703 Level-0 table #18: 122652 bytes OK
+2023/10/30-08:34:33.659 8703 Delete type=0 #15
+2023/10/30-08:34:33.659 8703 Compacting 4@0 + 1@1 files
+2023/10/30-08:34:33.688 8703 Generated table #19@0: 1857 keys, 129136 bytes
+2023/10/30-08:34:33.688 8703 Compacted 4@0 + 1@1 files => 129136 bytes
+2023/10/30-08:34:33.732 8703 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/10/30-08:34:33.733 8703 Delete type=2 #15
+2023/10/30-08:34:33.733 8703 Delete type=2 #13
+2023/10/30-08:34:33.733 8703 Delete type=2 #11
+2023/10/30-08:34:33.733 8703 Delete type=2 #8
+2023/10/30-08:34:33.733 8703 Delete type=2 #18

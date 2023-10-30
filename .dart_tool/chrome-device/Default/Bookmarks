@@ -1,14 +1,25 @@
 {
-   "checksum": "1e54fbb25d92a354f7aeaf576726429e",
+   "checksum": "2dfc46561ba89cb3fb7d50fddc195287",
    "roots": {
       "bookmark_bar": {
-         "children": [  ],
+         "children": [ {
+            "date_added": "13342988356516757",
+            "date_last_used": "0",
+            "guid": "e75c3a5c-3b53-46ea-b0a5-d43d54794d15",
+            "id": "5",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Facebook – log in or sign up",
+            "type": "url",
+            "url": "https://www.facebook.com/"
+         } ],
          "date_added": "13338815613303818",
          "date_last_used": "0",
-         "date_modified": "0",
+         "date_modified": "13342988356516757",
          "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
          "id": "1",
-         "name": "Bookmarks bar",
+         "name": "Bookmarks Bar",
          "type": "folder"
       },
       "other": {
@@ -18,7 +29,7 @@
          "date_modified": "0",
          "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
          "id": "2",
-         "name": "Other bookmarks",
+         "name": "Other Bookmarks",
          "type": "folder"
       },
       "synced": {
@@ -28,7 +39,7 @@
          "date_modified": "0",
          "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
          "id": "3",
-         "name": "Mobile bookmarks",
+         "name": "Mobile Bookmarks",
          "type": "folder"
       }
    },

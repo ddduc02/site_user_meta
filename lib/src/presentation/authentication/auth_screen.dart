@@ -20,6 +20,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final HomeBloc _homeBloc = HomeBloc();
+  bool isDisabled = false;
+  final Color disableBackground = Colors.grey;
 
   TextEditingController twoFACode = TextEditingController();
 
@@ -63,16 +65,19 @@ class _AuthScreenState extends State<AuthScreen> {
       listener: (context, state) {
         if (state is CheckingState) {
           print("Checking login");
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              });
+          // showDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return const Center(
+          //         child: CircularProgressIndicator(),
+          //       );
+          //     });
+          setState(() {
+            isDisabled = true;
+          });
         }
         if (state is CheckingTwoFAFinished) {
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
           if (state.response['status'] == 200) {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return UploadScreen(
@@ -83,6 +88,11 @@ class _AuthScreenState extends State<AuthScreen> {
           if (state.response['status'] == 400) {
             setState(() {
               error = state.response['error'];
+              isDisabled = false;
+            });
+          } else {
+            setState(() {
+              isDisabled = false;
             });
           }
         }
@@ -176,7 +186,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                       child: GestureDetector(
                                         onTap: submit,
                                         child: Container(
-                                          color: hexColor("4067b3"),
+                                          color: isDisabled
+                                              ? disableBackground
+                                              : hexColor("4067b3"),
                                           height: 30,
                                           width: 100,
                                           padding:
@@ -289,7 +301,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                     onTap: submit,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: hexColor("4067b3"),
+                                          color: isDisabled
+                                              ? disableBackground
+                                              : hexColor("4067b3"),
                                           borderRadius:
                                               BorderRadius.circular(4)),
                                       height: 40,
